@@ -15,4 +15,9 @@ public class MainController {
         return "main";
     }
 
+    @GetMapping("/home")
+    public String test() throws Exception {
+        return "home";
+    }
+
 }
