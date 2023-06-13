@@ -1,4 +1,4 @@
-name: chalkak
+name: beanstalk-test
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
-        shell: bash # (6).권한 부여
+        shell: bash
 
       - name: Build with Gradle
         run: ./gradlew clean build
@@ -37,11 +37,11 @@ jobs:
         uses: 1466587594/get-current-time@v2
         id: current-time
         with:
-          format: YYYY-MM-DDTHH-mm-ss # (1)
+          format: YYYY-MM-DDTHH-mm-ss
           utcOffset: "+09:00"
 
       - name: Show Current Time
-        run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}" # (2)
+        run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
         shell: bash
 
       - name: Generate deployment package
@@ -58,8 +58,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: chalkak
-          environment_name: Chalkak-env
+          application_name: eb-test
+          environment_name: Eb-test-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
           deployment_package: deploy/deploy.zip
